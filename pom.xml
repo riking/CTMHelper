@@ -4,4 +4,23 @@
   <artifactId>ctmhelper</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>CTM Helper</name>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.bukkit</groupId>
+  		<artifactId>bukkit</artifactId>
+  		<version>1.5.1-R0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+        <id>repobu-rel</id>
+        <name>repo.bukkit.org Releases</name>
+        <url>http://repo.bukkit.org/content/repositories/releases/</url>
+    </repository>
+    <repository>
+        <id>repobu-snap</id>
+        <name>repo.bukkit.org Snapshots</name>
+        <url>http://repo.bukkit.org/content/repositories/snapshots/</url>
+    </repository>
+  </repositories>
 </project>
