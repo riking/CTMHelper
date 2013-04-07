@@ -94,4 +94,13 @@ public class CtmMap {
             woolconfig.set(entry.getKey().toString(), entry.getValue().serialize());
         }
     }
+
+    /**
+     * Whether this Material is a metal block that goes on the Victory Monument.
+     * @param mat {@link org.bukkit.Material} to check
+     * @return true if the material is tracked on this map
+     */
+    public boolean isMetal(Material mat) {
+        return metals.containsKey(mat);
+    }
 }

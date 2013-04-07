@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import me.riking.ctmhelper.util.Attainment;
-import me.riking.ctmhelper.util.MapWoolStatus;
-
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
@@ -16,33 +14,41 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class CtmHelper extends JavaPlugin {
     public Map<UUID, CtmMap> maps = new HashMap<UUID, CtmMap>();
-    public HashSet<String> trackedworlds;
+    public HashSet<String> trackedWorlds;
     ConfigurationSection worldConfig;
     //public static CtmHelper instance;
 
     @Override
+    public void onLoad() {
+        ConfigurationSerialization.registerClass(Attainment.class);
+    }
+
+    @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new CtmListener(this), this);
-        ConfigurationSerialization.registerClass(MapWoolStatus.class);
-        ConfigurationSerialization.registerClass(Attainment.class);
+        getDataFolder().mkdir();
 
         worldConfig = getConfig().getConfigurationSection("worlds");
         if (worldConfig == null) {
             worldConfig = getConfig().createSection("worlds");
         }
-        trackedworlds = new HashSet<String>(worldConfig.getKeys(false));
+        trackedWorlds = new HashSet<String>(worldConfig.getKeys(false));
+        trackedWorlds.add("world"); //XXX
 
         //instance = this;
     }
 
     @Override
     public void onDisable() {
-        //instance = null;
+        saveConfig();
     }
 
     @Override
     public void saveConfig() {
-
+        for (World w : getServer().getWorlds()) {
+            saveWorldStatus(w);
+        }
+        super.saveConfig();
     }
 
     public CtmMap getMapInfo(UUID world) {
@@ -50,7 +56,7 @@ public final class CtmHelper extends JavaPlugin {
     }
 
     public boolean isWorldTracked(String world) {
-        return trackedworlds.contains(world);
+        return trackedWorlds.contains(world);
     }
 
     public void loadWorldStatus(World world) {
@@ -67,6 +73,8 @@ public final class CtmHelper extends JavaPlugin {
     }
 
     public void sendMessage(String string) {
-        getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', string));
+        String processed = ChatColor.translateAlternateColorCodes('&', string);
+        getServer().broadcastMessage(processed);
+        getServer().getConsoleSender().sendMessage(processed);
     }
 }
