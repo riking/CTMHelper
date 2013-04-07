@@ -39,30 +39,30 @@ public class Attainment implements ConfigurationSerializable {
      * Timestamp of placing the VM object
      */
     public long timePlaced;
-    
+
     public Attainment() {
-        this.status = VMLocation.WOOL_BOX;
-        this.woolbox = null;
-        this.player = null; 
-        this.playerFound = null;
-        this.timeFound = 0;
-        this.playerPlaced = null;
-        this.timePlaced = 0;
+        status = VMLocation.NOT_FOUND;
+        woolbox = null;
+        player = null;
+        playerFound = null;
+        timeFound = 0;
+        playerPlaced = null;
+        timePlaced = 0;
     }
 
     /**
      * Serialized constructor
      */
     public Attainment(Map<String, Object> map) {
-        this.status = (VMLocation) map.get("status");
-        this.woolbox = (Location) map.get("woollocation");
-        this.player = (String) map.get("lastplayer");
-        this.playerFound = (String) map.get("findingplayer");
-        this.playerPlaced = (String) map.get("finalplayer");
+        status = (VMLocation) map.get("status");
+        woolbox = (Location) map.get("woollocation");
+        player = (String) map.get("lastplayer");
+        playerFound = (String) map.get("findingplayer");
+        playerPlaced = (String) map.get("finalplayer");
         // autounboxed
-        this.timeFound = (Long) map.get("timefound");
+        timeFound = (Long) map.get("timefound");
         // autounboxed
-        this.timePlaced = (Long) map.get("timeplaced");
+        timePlaced = (Long) map.get("timeplaced");
     }
 
     public Map<String, Object> serialize() {
@@ -87,7 +87,7 @@ public class Attainment implements ConfigurationSerializable {
     public void setWoolBoxLocation(Location loc) {
         woolbox = loc;
     }
-    
+
     public void setFound(Player p) {
         player = p.getName();
         playerFound = p.getName();
@@ -102,8 +102,7 @@ public class Attainment implements ConfigurationSerializable {
     }
 
     public enum VMLocation {
-        WOOL_BOX,
-        UNCRAFTED,
+        NOT_FOUND,
         FOUND,
         GROUND,
         CHEST,
