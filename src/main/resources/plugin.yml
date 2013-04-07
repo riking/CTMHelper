@@ -1,0 +1,4 @@
+name: CTMHelper
+main: me.riking.ctmhelper.CtmHelper
+version: 0.0.1
+load: startup
