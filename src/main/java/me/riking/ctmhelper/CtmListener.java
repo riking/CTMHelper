@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.event.world.WorldInitEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 
 public class CtmListener implements Listener {
@@ -43,8 +43,8 @@ public class CtmListener implements Listener {
         }
     }
 
-    @EventHandler
-    public void onLoad(WorldLoadEvent event) {
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onWorldInit(WorldInitEvent event) {
         instance.getLogger().info("Caught world load:" + event.getWorld().getName());
         if (instance.isWorldTracked(event.getWorld().getName())) {
             instance.loadWorldStatus(event.getWorld());
